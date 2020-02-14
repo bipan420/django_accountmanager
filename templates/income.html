@@ -1,0 +1,36 @@
+{% extends 'master/master.html' %}
+
+ {% block 'sidebar' %}
+  {% include 'component/sidebar.html' %}
+ {% endblock %}
+
+ {% block 'navbar' %}
+  {% include 'component/nav.html' %}
+ {% endblock %}
+
+ {% block 'footer' %}
+{% include 'component/footer.html' %}
+ {% endblock %}
+
+{% block 'body' %}
+{% include 'component/message.html' %}
+  <h3>All Income</h3>
+  <table class="table">
+   <thead>
+     <th>Title</th>
+     <th>Amount</th>
+     <th>date</th>
+   <th>Action</th>
+   </thead>
+   {% for a in all %}
+    <tr>
+     <td>{{a.title}}</td>
+     <td>{{a.amount}}</td>
+     <td>{{a.date}}</td>
+     <td>del | edit </td>
+    </tr>
+   {% endfor %}
+  </table>
+
+{% endblock %}
+

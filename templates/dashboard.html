@@ -1,0 +1,36 @@
+{% extends 'master/master.html' %}
+
+ {% block 'sidebar' %}
+  {% include 'component/sidebar.html' %}
+ {% endblock %}
+
+ {% block 'navbar' %}
+  {% include 'component/nav.html' %}
+ {% endblock %}
+
+ {% block 'footer' %}
+{% include 'component/footer.html' %}
+ {% endblock %}
+
+{% block 'body' %}
+ {% include 'component/message.html' %}
+
+ <div class="row">
+    <div class="col-md-3" style="background-color: green; color: white; border-radius: 10px;">
+        <h4>Day Income</h4>
+        <h5>Rs. 2500</h5>
+    </div>
+
+    <div class="col-md-3 ml-3" style="background-color: red; color: white; border-radius: 10px;">
+        <h4>Total Expenses</h4>
+        <h5>Rs. 2500</h5>
+    </div>
+
+    <div class="col-md-3 ml-3" style="background-color: blue; color: white; border-radius: 10px;">
+        <h4>Total Saving</h4>
+        <h5>Rs. 2500</h5>
+    </div>
+ </div>
+
+{% endblock %}
+
