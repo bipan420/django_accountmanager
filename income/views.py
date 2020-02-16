@@ -4,6 +4,8 @@ from .forms import IncomeCategoryForm,IncomeForm
 from django.contrib import messages
 from .models import IncomeCategory,Income
 
+
+
 # Create your views here.
 
 
@@ -58,3 +60,18 @@ class AllIncomeView(View):
             'all': Income.objects.filter(user_id = request.user.id)
         }
         return render(request,self.template_name,context)
+
+def editIncome(request,id):
+    form = IncomeForm(request.POST or None,request.FILES or None,instance=Income.objects.get(id=id))
+    if form.is_valid():
+        form.save()
+        messages.add_message(request,messages.SUCCESS,'Successfully updated')
+        return redirect('all_income')
+    return render(request,'edit_income.html',context = {'form':form})
+
+
+def deleteIncome(request,id):
+    a = Income.objects.get(id=id)
+    a.delete()
+    messages.add_message(request,messages.SUCCESS,'Successfully deleted')
+    return redirect('all_income')

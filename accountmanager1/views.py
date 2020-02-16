@@ -4,6 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+from expenses.models import Expenses
+from income.models import Income
 
 class SignupView(View):
     template_name = 'signup.html'
@@ -40,6 +42,7 @@ class LoginView(View):
     template_name = 'login.html'
 
     def get(self,request):
+        
         return render(request,self.template_name)
 
     def post(self,request,*args,**kwargs):
@@ -60,7 +63,12 @@ class DashboardView(LoginRequiredMixin,View):
     template_name = 'dashboard.html'
 
     def get(self,request):
-        return render(request,self.template_name)
+        context = {
+            'exp': Expenses.objects.getExpensesOfToday(request.user.id),
+            'income': Income.objects.getIncomeOfToday(request.user.id),
+
+        }
+        return render(request,self.template_name,context)
 
 
 def signout(request):

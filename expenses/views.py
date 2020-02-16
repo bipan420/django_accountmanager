@@ -59,8 +59,8 @@ class AllExpensesView(View):
         return render(request,self.template_name,context)
 
 
-def editExpenses(request,slug):
-    form = ExpensesForm(request.POST or None, request.FILES or None,instance=Expenses.objects.get(id=id))
+def editExpenses(request,id):
+    form = ExpensesForm(request.POST or None,request.FILES or None,instance=Expenses.objects.get(id=id))
     if form.is_valid():
         form.save()
         messages.add_message(request,messages.SUCCESS,"Successfully updated")
@@ -70,5 +70,5 @@ def editExpenses(request,slug):
 def deleteExpenses(request,id):
     a = Expenses.objects.get(id=id)
     a.delete()
-    messages.add_message(request,messages.SUCCESS,'Dleted Succesfully')
+    messages.add_message(request,messages.SUCCESS,'Deleted Succesfully')
     return redirect('all_expenses')
