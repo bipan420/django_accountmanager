@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from expenses.models import Expenses
 from income.models import Income
+import random
 
 class SignupView(View):
     template_name = 'signup.html'
@@ -61,11 +62,33 @@ class LoginView(View):
 class DashboardView(LoginRequiredMixin,View):
     login_url = '/login'
     template_name = 'dashboard.html'
+    
 
     def get(self,request):
+        expenses_by_category = Expenses.objects.getExpensesByCategory(request.user.id)
+        color =['#4e73df', '#1cc88a', '#36b9cc','#2e59d9', '#17a673', '#2c9faf']
+        category = list(expenses_by_category.keys())
+        amount = list(expenses_by_category.values())
+
+        bgcolor = []
+        hovercolor =[]
+        for i in category:
+            bgcolor.append(color[random.randint(0,5)])
+            hovercolor.append(color[random.randint(0,5)])
+        newamount = []
+        for i in amount:
+            if i == None:
+                newamount.append(0.0)
+            else:
+                newamount.append(i)
+
         context = {
             'exp': Expenses.objects.getExpensesOfToday(request.user.id),
             'income': Income.objects.getIncomeOfToday(request.user.id),
+            'cat':category,
+            'amount':newamount,
+            'bg':bgcolor,
+            'hc':hovercolor
 
         }
         return render(request,self.template_name,context)
