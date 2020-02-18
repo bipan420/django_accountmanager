@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate,login,logout
 from expenses.models import Expenses
 from income.models import Income
 import random
+from mail.mail import send
 
 class SignupView(View):
     template_name = 'signup.html'
@@ -27,6 +28,7 @@ class SignupView(View):
                 u = User(username=u,email=e,first_name=f,last_name=l)
                 u.set_password(p1)
                 u.save()
+                send(subject="Account Created",message=f"{f} Thank you for creating account with us",recipient_list=[e,])
                 messages.add_message(request,messages.SUCCESS,'Signup successful')
                 return redirect('login')
             except:
@@ -97,4 +99,5 @@ class DashboardView(LoginRequiredMixin,View):
 def signout(request):
     logout(request)
     return redirect('login')
+
 

@@ -127,3 +127,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+#Note: be sure to turn on POP and IMAP in gmail's setting.
+# Also you should disable 2 factor authentication and allow less secure app to use. It can be found in 'manage your google account' on your profile 
+EMAIL_HOST_USER = 'your gmail email here'
+EMAIL_HOST_PASSWORD = 'your gmail password here'
