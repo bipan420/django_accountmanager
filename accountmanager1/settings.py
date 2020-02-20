@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'expenses',
     'income',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -136,5 +137,5 @@ EMAIL_PORT = 587
 
 #Note: be sure to turn on POP and IMAP in gmail's setting.
 # Also you should disable 2 factor authentication and allow less secure app to use. It can be found in 'manage your google account' on your profile 
-EMAIL_HOST_USER = 'your gmail email here'
-EMAIL_HOST_PASSWORD = 'your gmail password here'
+EMAIL_HOST_USER = 'your email here'
+EMAIL_HOST_PASSWORD = 'your password here'

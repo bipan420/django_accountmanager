@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from .views import SignupView,LoginView,DashboardView,signout
+from django.contrib.auth.views import (
+    PasswordResetView,PasswordResetConfirmView, PasswordResetDoneView,PasswordResetCompleteView
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +27,13 @@ urlpatterns = [
     path('dashboard/',DashboardView.as_view(),name='dashboard'),
     path('logout/',signout,name='signout'),
     path('expenses/',include('expenses.urls')),
-    path('income/',include('income.urls'))
+    path('income/',include('income.urls')),
+    path('reset-password/',PasswordResetView.as_view(),name='forget_password'),
+    path('reset-password/confirmation/<str:uidb64>/<str:token>/',PasswordResetConfirmView.as_view(template_name='change_password.html'),name='password_reset_confirm'),
+    path('reset-password/done/',PasswordResetDoneView.as_view(template_name='password_done.html'),name='password_reset_done'),
+    path('reset-password/complete/',PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),name='passwore_reset_complete'),
+    path('api/',include('api.urls'))
+
+
 
 ]
